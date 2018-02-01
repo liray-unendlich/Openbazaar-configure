@@ -32,7 +32,7 @@ mv openbazaar-go-linux-amd64 openbazaard
 tar -xvzf phore-1.1.0-x86_64-linux-gnu.tar.gz
 cd phore-1.1.0/bin
 mv phored phore-cli phore-tx ~/
-cd ..
+cd ~/
 chmod +x openbazaard phored phore-cli phore-tx
 mv openbazaard phored phore-cli phore-tx /usr/local/bin/
 rm -r phore-1.1.0
