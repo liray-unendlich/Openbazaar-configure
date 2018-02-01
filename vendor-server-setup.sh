@@ -29,8 +29,10 @@ apt-get install -y libdb4.8-dev libdb4.8++-dev
 wget https://github.com/phoreproject/Phore/releases/download/v1.2.0.0/phore-1.1.0-x86_64-linux-gnu.tar.gz
 wget https://github.com/phoreproject/openbazaar-go/releases/download/v1.0.1/openbazaar-go-linux-amd64
 mv openbazaar-go-linux-amd64 openbazaard
+tar -xvzf phore-1.1.0-x86_64-linux-gnu.tar.gz
 cd phore-1.1.0/bin
 mv phored phore-cli phore-tx ~/
+cd ..
 chmod +x openbazaard phored phore-cli phore-tx
 mv openbazaard phored phore-cli phore-tx /usr/local/bin/
 rm -r phore-1.1.0
@@ -59,7 +61,7 @@ echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\n
 
 echo '*** Done 3/4 ***'
 echo '*** Start syncing and initialize openbazaard ***'
-phored -daemon
+#phored -daemon
 openbazaard init
 sed -i -e 's/"AcceptStoreRequests": false/"AcceptStoreRequests": true/g' .openbazaar2.0/config
 #rpcusr=$(cat .phore/phore.conf | grep rpcuser | awk '{print substr($0,9)}')
@@ -67,8 +69,8 @@ sed -i -e 's/"AcceptStoreRequests": false/"AcceptStoreRequests": true/g' .openba
 sed -i -e "s:phorerpc:$rpcusr:" .openbazaar2.0/config
 sed -i -e "s:rpcpassword:$rpcpass:" .openbazaar2.0/config
 echo 'Please wait for a minute. it will show you result of phore-cli getinfo'
-sleep 60
-phore-cli getinfo
+sleep 3
+#phore-cli getinfo
 sleep 2
 openbazaard start --verbose
 echo "Your openbazaar server is started!"
