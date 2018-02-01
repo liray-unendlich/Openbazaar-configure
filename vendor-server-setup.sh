@@ -12,58 +12,41 @@ sleep 3
 echo '*** Step 1/4 ***'
 echo '*** Installing package ***'
 sleep 2
-sudo apt-get update -y
-sudo apt-get upgrade -y
-sudo apt-get dist-upgrade -y
-sudo apt-get install -y nano htop git
-sudo apt-get install -y software-properties-common
-sudo apt-get install -y build-essential libtool autotools-dev pkg-config libssl-dev libevent-dev
-sudo apt-get install -y libboost-all-dev
-sudo apt-get install -y libminiupnpc-dev
-sudo apt-get install -y autoconf
-sudo apt-get install -y automake
-sudo add-apt-repository ppa:bitcoin/bitcoin -y
-sudo apt-get update -y
-sudo apt-get dist-upgrade -y
-sudo apt-get install -y libdb4.8-dev libdb4.8++-dev
+apt-get update -y
+apt-get upgrade -y
+apt-get dist-upgrade -y
+apt-get install -y nano htop git
+apt-get install -y software-properties-common
+apt-get install -y build-essential libtool autotools-dev pkg-config libssl-dev libevent-dev
+apt-get install -y libboost-all-dev
+apt-get install -y libminiupnpc-dev
+apt-get install -y autoconf
+apt-get install -y automake
+add-apt-repository ppa:bitcoin/bitcoin -y
+apt-get update -y
+apt-get dist-upgrade -y
+apt-get install -y libdb4.8-dev libdb4.8++-dev
+wget https://github.com/phoreproject/Phore/releases/download/v1.2.0.0/phore-1.1.0-x86_64-linux-gnu.tar.gz
 wget https://github.com/phoreproject/openbazaar-go/releases/download/v1.0.1/openbazaar-go-linux-amd64
 mv openbazaar-go-linux-amd64 openbazaard
-chmod +x openbazaard
-sudo cp openbazaard /usr/local/bin/
+cd phore-1.1.0/bin
+mv phored phore-cli phore-tx ~/
+chmod +x openbazaard phored phore-cli phore-tx
+mv openbazaard phored phore-cli phore-tx /usr/local/bin/
+rm -r phore-1.1.0
 sleep 1
 echo '*** Done 1/4 ***'
 sleep 1
 echo '*** Step 2/4 ***'
 echo '*** Starting & Configuring firewall ***'
-sudo apt-get install -y ufw
-sudo ufw default deny
-sudo ufw allow ssh/tcp
-sudo limit ssh/tcp
-sudo ufw logging on
-sudo ufw --force enable
-sudo ufw status
+apt-get install -y ufw
+ufw default deny
+ufw allow ssh/tcp
+limit ssh/tcp
+ufw logging on
+ufw --force enable
+ufw status
 sleep 1
-echo "***make swap***"
-grep -q "swapfile" /etc/fstab
-if [ $? -ne 0 ]; then
-  echo "can't find swapfile. making swapfile..."
-  fallocate -l 2G /swapfile
-  chmod 600 /swapfile
-  mkswap /swapfile
-  swapon /swapfile
-  echo '/swapfile none swap defaults 0 0' >> /etc/fstab
-else
-  echo 'find swapfile, go next step...'
-fi
-echo '*** Done 2/4 ***'
-sleep 1
-echo "***Compiling phored...***"
-git clone https://github.com/phoreproject/Phore.git
-cd Phore
-sudo ./autogen.sh
-sudo ./configure
-sudo make
-sudo make install
 echo '*** Starting & configuring the wallet ***'
 sleep 2
 phored -daemon
