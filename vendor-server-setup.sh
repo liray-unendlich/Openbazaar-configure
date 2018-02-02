@@ -29,7 +29,7 @@ wget https://github.com/phoreproject/Phore/releases/download/v1.2.0.0/phore-1.1.
 wget https://github.com/phoreproject/openbazaar-go/releases/download/v1.0.1/openbazaar-go-linux-amd64
 mv openbazaar-go-linux-amd64 openbazaard
 tar -xvzf phore-1.1.0-x86_64-linux-gnu.tar.gz
-rm ohire-1.1.0-x86_64-linux-gnu.tar.gz
+rm phore-1.1.0-x86_64-linux-gnu.tar.gz
 cd phore-1.1.0/bin
 mv phored phore-cli phore-tx ~/
 cd ~/
@@ -53,10 +53,11 @@ sleep 2
 phored -daemon
 sleep 2
 echo -n 'Dont worry about rpcuser~ errors.'
+
 rpcusr=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
 rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
 
-echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nlogtimestamps=1\nmaxconnections=256\n" > ~/.phore/phore.conf
+echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nlogtimestamps=1\nmaxconnections=256" > ~/.phore/phore.conf
 
 echo '*** Done 3/4 ***'
 echo '*** Start syncing and initialize openbazaard ***'
