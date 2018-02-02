@@ -35,7 +35,6 @@ echo '*** Starting & Configuring firewall ***'
 apt-get install -y ufw
 ufw default deny
 ufw allow ssh/tcp
-limit ssh/tcp
 ufw logging on
 ufw --force enable
 ufw status
@@ -43,7 +42,7 @@ echo '*** Configuring the wallet ***'
 mkdir .phore
 rpcusr=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
 rpcpass=$(more /dev/urandom  | tr -d -c '[:alnum:]' | fold -w 20 | head -1)
-echo -e "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nlogtimestamps=1\nmaxconnections=256" > ~/.phore/phore.conf
+echo "rpcuser=$rpcusr\nrpcpassword=$rpcpass\nrpcallowip=127.0.0.1\nlisten=1\nserver=1\ndaemon=1\nstaking=0\nlogtimestamps=1\nmaxconnections=256" > ~/.phore/phore.conf
 echo '*** Done 3/4 ***'
 echo '*** Start syncing and initialize openbazaard ***'
 openbazaard init
